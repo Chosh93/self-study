@@ -16,9 +16,6 @@ const Main = () => {
       <div>
         <Link to="/closurePage2">클로저2</Link>
       </div>
-      <div>
-        <Link to="/async">비동기</Link>
-      </div>
     </div>
   );
 };
