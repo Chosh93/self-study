@@ -117,7 +117,7 @@ const hi = () => {
 hi(1, 2, 3);
 
 /**
- * 화살표 함수와 일반 함수의 가장츤 차이점은 바로 this 바인딩.
+ * 화살표 함수와 일반 함수의 가장 큰 차이점은 바로 this 바인딩.
  * this: 자신이 속한 객체나 자신이 생성할 인스턴스를 가리키는 값
  * this는 화살표 함수 이전까지는 함수를 정의할 때 결정되는 것이 아니라, 함수가 어떻게 호출되느냐에 따라 동적으로 결정된다.
  * 만약 함수가 일반 함수로서 호출된다면, 그 내부의 this는 전역 개체를 가리키게 된다.
@@ -132,6 +132,43 @@ function hi() {
   console.log(this);
 }
 ******************************************************************
+
+class Component extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      counter: 1,
+    };
+    this.functionCountUp = this.functionCountUp.bind(this); // 일반 함수는 바인딩을 시켜줘야 동작
+  }
+
+  functionCountUp() {
+    console.log(this);
+    this.setState((prev) => ({
+      counter: prev.counter + 1,
+    }));
+  }
+
+  ArrowFunctionCountUp = () => {
+    console.log(this);
+    this.setState((prev) => ({ counter: prev.counter + 1 }));
+  };
+  render() {
+    return (
+      <div>
+        <button onClick={this.functionCountUp}>일반 함수</button>
+        <button onClick={this.ArrowFunctionCountUp}>화살표 함수</button>
+      </div>
+    );
+  }
+}
+const FuncPage = () => {
+  return (
+    <>
+      <Component />
+    </>
+  );
+};
 버튼 클릭 후 콘솔로그 확인 state값
 `}
           </code>
