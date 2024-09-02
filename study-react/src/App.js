@@ -1,14 +1,15 @@
 import React from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import ClassPage from "./page/ClassPage";
-import ClosurePage2 from "./page/ClosuerPage2";
-import ClosurePage from "./page/ClosurePage";
-import FuncPage from "./page/FuncPage";
-
+import Main from "./page/main/Main";
+import ClassPage from "./page/note/ClassPage";
+import ClosurePage2 from "./page/note/ClosuerPage2";
+import ClosurePage from "./page/note/ClosurePage";
+import FuncPage from "./page/note/FuncPage";
 function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<Main />} />
         <Route path="/funcPage" element={<FuncPage />} />
         <Route path="/classPage" element={<ClassPage />} />
         <Route path="/closurePage" element={<ClosurePage />} />
