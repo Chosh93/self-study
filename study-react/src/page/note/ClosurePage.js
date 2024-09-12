@@ -26,91 +26,91 @@ const ClosurePage = () => {
         <pre>
           <code>
             {`// /**
-//  * 리액트의 클래스 컴포넌트에 대한 이해가 클래스, 프로토타입, this에 달려있다면,
-//  * 함수 컴포넌트에 대한 이해는 클로저에 달려있다. 함수 컴포넌트의 구조화 작동방식, 훅의원리, 의존성배열 등
-//  * 함수 컴포넌트의 대부분의 기술이 모두 클로저에 의존하고 있다.
-//  */
+ * 리액트의 클래스 컴포넌트에 대한 이해가 클래스, 프로토타입, this에 달려있다면,
+ * 함수 컴포넌트에 대한 이해는 클로저에 달려있다. 함수 컴포넌트의 구조화 작동방식, 훅의원리, 의존성배열 등
+ * 함수 컴포넌트의 대부분의 기술이 모두 클로저에 의존하고 있다.
+ */
 
-// /**
-//  * a변수의 범위는 add 전체이고 b의 범위는 innerAdd 전체다.
-//  * 이러한 변수의 유효범위를 스코프라고 한다.
-//  */
-// function add() {
-//     const a = 10;
-//     function innerAdd() {
-//       const b = 20;
-//       console.log(a + b);
-//     }
-//     innerAdd();
-//   }
-//   add();
+/**
+ * a변수의 범위는 add 전체이고 b의 범위는 innerAdd 전체다.
+ * 이러한 변수의 유효범위를 스코프라고 한다.
+ */
+function add() {
+    const a = 10;
+    function innerAdd() {
+      const b = 20;
+      console.log(a + b);
+    }
+    innerAdd();
+  }
+  add();
 
-//   /**
-//    * 전역 스코프?: 어디서든 호출할 수 있다.
-//    * 브라우저 환경에서 전역 객체는 window, NodeJs환경에서는 global이 있다.
-//    */
-//   var global = "global scope";
-//   function hello() {
-//     console.log(global);
-//   }
-//   console.log(global);
-//   hello();
+  /**
+   * 전역 스코프?: 어디서든 호출할 수 있다.
+   * 브라우저 환경에서 전역 객체는 window, NodeJs환경에서는 global이 있다.
+   */
+  var global = "global scope";
+  function hello() {
+    console.log(global);
+  }
+  console.log(global);
+  hello();
 
-//   /**
-//    * 함수 스코프?: 다른 언어와 달리 js는 기본적으로 함수레벨 스코프를 따른다.
-//    * 즉, {} 블록이 스코프의 범위를 결정하지 않는다.
-//    */
-//   if (true) {
-//     var test = "test";
-//   }
-//   console.log(test);
+  /**
+   * 함수 스코프?: 다른 언어와 달리 js는 기본적으로 함수레벨 스코프를 따른다.
+   * 즉, {} 블록이 스코프의 범위를 결정하지 않는다.
+   */
+  if (true) {
+    var test = "test";
+  }
+  console.log(test);
 
-//   function hello() {
-//     var local = "local";
-//     console.log(local);
-//   }
-//   hello();
-//   // console.log(local); // local is not defined
+  function hello() {
+    var local = "local";
+    console.log(local);
+  }
+  hello();
+  // console.log(local); // local is not defined
 
-//   /**
-//    * 만약 전역스코프와 함수스코프가 겹쳐있다면?
-//    * js에서 스코프는, 일단 가장 가까운 스코프에서 변수가 존재하는지를 먼저 확인.
-//    */
-//   var x = 10;
-//   function foo() {
-//     var x = 100;
-//     console.log(x);
-//     function bar() {
-//       var x = 1000;
-//       console.log(x);
-//     }
-//     bar();
-//   }
-//   console.log(x);
-//   foo();
+  /**
+   * 만약 전역스코프와 함수스코프가 겹쳐있다면?
+   * js에서 스코프는, 일단 가장 가까운 스코프에서 변수가 존재하는지를 먼저 확인.
+   */
+  var x = 10;
+  function foo() {
+    var x = 100;
+    console.log(x);
+    function bar() {
+      var x = 1000;
+      console.log(x);
+    }
+    bar();
+  }
+  console.log(x);
+  foo();
 
-//   /**
-//    * 클로저의 활용
-//    */
-//   function outerfunction() {
-//     var x = "hello";
-//     function innerFunction() {
-//       console.log(x);
-//     }
-//     return innerFunction;
-//   }
-//   const innerFunction = outerfunction();
-//   innerFunction();
+  /**
+   * 클로저의 활용
+   */
+  function outerfunction() {
+    var x = "hello";
+    function innerFunction() {
+      console.log(x);
+    }
+    return innerFunction;
+  }
+  const innerFunction = outerfunction();
+  innerFunction();
 
-//   /**
-//    * 전역 스코프는 어디서든 원하는 값을 꺼냉ㄹ 수 있다는 장점이 있지만,
-//    * 반대로 생각하면 누구든 접근 가능하고 수정할 수 있다는 뜻
-//    */
+  /**
+   * 전역 스코프는 어디서든 원하는 값을 꺼냉ㄹ 수 있다는 장점이 있지만,
+   * 반대로 생각하면 누구든 접근 가능하고 수정할 수 있다는 뜻
+   */
 
-//   var counter = 0;
-//   function handleclick() {
-//     counter++; // 전역스코프가 바로 수정
-//
+  var counter = 0;
+  function handleclick() {
+    counter++; // 전역스코프가 바로 수정
+
 
 
 ******************************************************************
